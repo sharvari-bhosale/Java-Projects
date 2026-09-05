@@ -1,15 +1,16 @@
 # FTP Server-Client
 
-A Java-based FTP Server-Client application developed using **Socket Programming**, **Multithreading**, **File Handling**, and **Java Swing**.
+A Java-based FTP Server-Client application that demonstrates **TCP Socket Programming, Multithreading, File Handling, Java I/O, and Java Swing**.
 
-The application allows a client to connect to the server and perform different file operations such as listing, checking, viewing file information, uploading, downloading, renaming, and deleting files.
+The application allows a client to connect to the server and perform different file operations such as listing, checking, viewing information, uploading, downloading, renaming, and deleting files.
 
 ---
 
 ## Features
 
-* Client-Server communication using TCP Socket Programming
+* TCP-based Client-Server communication
 * Multiple client support using Multithreading
+* GUI-based Client using Java Swing
 * File upload from Client to Server
 * File download from Server to Client
 * List files available on the Server
@@ -18,10 +19,9 @@ The application allows a client to connect to the server and perform different f
 * Display file size
 * Rename files
 * Delete files
-* GUI-based Client using Java Swing
 * Command-based file operations
-* Exception handling
 * File transfer using byte streams
+* Exception handling
 
 ---
 
@@ -55,28 +55,72 @@ FTP-Server-Client/
 
 ---
 
-## How It Works
+## System Architecture
 
 The project follows a **Client-Server Architecture**.
 
 ```text
-              TCP Connection
-      ┌──────────────────────────┐
-      │                          │
-      ▼                          ▼
-┌──────────┐                ┌──────────┐
-│  Client  │  ◄──────────►  │  Server  │
-│   GUI    │                │          │
-└──────────┘                └──────────┘
-      │                          │
-      │                          │
-      ▼                          ▼
- Client Files                Server Files
+                    TCP Connection
+              ┌──────────────────────┐
+              │                      │
+              ▼                      ▼
+        ┌───────────┐          ┌───────────┐
+        │  Client   │          │  Server   │
+        │    GUI    │◄────────►│           │
+        └───────────┘          └───────────┘
+              │                      │
+              ▼                      ▼
+        Client Files           Server Files
 ```
 
 The server listens for client connections on **port 9000**.
 
-When a client connects, the server creates a separate thread to handle that client request.
+When a client connects, the server creates a separate thread to handle that client.
+
+This allows multiple clients to communicate with the server independently.
+
+---
+
+## Java Files
+
+### Server.java
+
+Responsible for:
+
+* Starting the server
+* Listening for client connections
+* Accepting client requests
+* Creating a separate thread for each client
+* Processing FTP commands
+* Handling file operations
+* Sending files to the client
+* Receiving files from the client
+
+### FTPClient.java
+
+Responsible for:
+
+* Establishing connection with the server
+* Sending commands to the server
+* Receiving server responses
+* Uploading files
+* Downloading files
+* Performing file operations
+
+### ClientGUI.java
+
+Provides a graphical interface using **Java Swing**.
+
+The GUI allows the user to:
+
+* Connect to the server
+* Enter file names
+* Execute file operations
+* Upload files
+* Download files
+* Rename files
+* Delete files
+* View server responses
 
 ---
 
@@ -87,48 +131,12 @@ When a client connects, the server creates a separate thread to handle that clie
 | `LIST`                               | Displays files available on the server |
 | `EXIST <FileName>`                   | Checks whether a file exists           |
 | `INFO <FileName>`                    | Displays file information              |
-| `SIZE <FileName>`                    | Displays file size                     |
-| `GET <FileName>`                     | Downloads a file from server           |
-| `PUT <FileName>`                     | Uploads a file to server               |
+| `SIZE <FileName>`                    | Displays the size of a file            |
+| `GET <FileName>`                     | Downloads a file from the server       |
+| `PUT <FileName>`                     | Uploads a file to the server           |
 | `RENAME <OldFileName> <NewFileName>` | Renames a file                         |
 | `DELETE <FileName>`                  | Deletes a file                         |
 | `QUIT`                               | Disconnects the client                 |
-
----
-
-## How to Run
-
-### 1. Compile the Server
-
-Open Command Prompt in the project directory and run:
-
-```bash
-javac Server.java
-```
-
-### 2. Start the Server
-
-```bash
-java Server
-```
-
-The server will start on port `9000`.
-
----
-
-### 3. Compile the Client
-
-Open another Command Prompt in the same project directory and run:
-
-```bash
-javac FTPClient.java ClientGUI.java
-```
-
-### 4. Start the Client GUI
-
-```bash
-java ClientGUI
-```
 
 ---
 
@@ -136,20 +144,115 @@ java ClientGUI
 
 ### Upload
 
-The `PUT` operation transfers a file from the **Client to the Server**.
+The `PUT` command is used to upload a file from the client to the server.
 
 ```text
-Client ───────────────► Server
-         File Upload
+Client
+   │
+   │ PUT FileName
+   │
+   ▼
+Server
+   │
+   ▼
+File stored on Server
 ```
 
 ### Download
 
-The `GET` operation transfers a file from the **Server to the Client**.
+The `GET` command is used to download a file from the server to the client.
 
 ```text
-Client ◄─────────────── Server
-        File Download
+Client
+   ▲
+   │ GET FileName
+   │
+   │ File
+   │
+Server
+```
+
+---
+
+## How to Run
+
+### Step 1: Open the Project Directory
+
+Open Command Prompt or Terminal inside the `FTP-Server-Client` folder.
+
+---
+
+### Step 2: Compile the Server
+
+```bash
+javac Server.java
+```
+
+---
+
+### Step 3: Start the Server
+
+```bash
+java Server
+```
+
+The server will start and listen on:
+
+```text
+Port: 9000
+```
+
+You should see a message similar to:
+
+```text
+--------------------------------------------------------
+---Marvellous Server Started---
+--------------------------------------------------------
+Server is waiting for client request
+```
+
+---
+
+### Step 4: Compile the Client
+
+Open another Command Prompt or Terminal in the same project directory.
+
+```bash
+javac FTPClient.java ClientGUI.java
+```
+
+---
+
+### Step 5: Start the Client GUI
+
+```bash
+java ClientGUI
+```
+
+The Client GUI will open.
+
+Enter the server details and connect to the server.
+
+---
+
+## Example Workflow
+
+```text
+1. Start Server
+        ↓
+2. Start Client GUI
+        ↓
+3. Connect Client to Server
+        ↓
+4. Select File Operation
+        ↓
+5. Send Request to Server
+        ↓
+6. Server Processes Request
+        ↓
+7. Server Sends Response
+        ↓
+8. Client Displays Result
 ```
 
 ---
@@ -158,7 +261,7 @@ Client ◄─────────────── Server
 
 ### Client-Server Connection
 
-![Client Server Connection](screenshots/connection.png)
+![Client-Server Connection](screenshots/client-server-connection.png)
 
 ### File Information
 
@@ -166,27 +269,33 @@ Client ◄─────────────── Server
 
 ### FTP Server Command Execution
 
-![FTP Command Execution](screenshots/command-execution.png)
+![FTP Server Command Execution](screenshots/ftp-command-execution.png)
 
 ### File Upload and Download
 
-![File Upload and Download](screenshots/upload-download.png)
+![File Upload and Download](screenshots/file-upload-download.png)
 
 ---
 
 ## Concepts Demonstrated
 
-This project demonstrates practical implementation of:
+This project demonstrates practical implementation of the following Java concepts:
 
-* TCP Socket Programming
-* Client-Server Architecture
-* Multithreading
-* Java I/O Streams
-* File Handling
-* Byte Stream File Transfer
-* Java Swing GUI
-* Exception Handling
-* Command Processing
+* **Socket Programming**
+* **Client-Server Architecture**
+* **TCP Communication**
+* **Multithreading**
+* **Java I/O Streams**
+* **DataInputStream**
+* **DataOutputStream**
+* **FileInputStream**
+* **FileOutputStream**
+* **File Handling**
+* **Byte Stream File Transfer**
+* **Java Swing**
+* **Exception Handling**
+* **Command Processing**
+* **Thread-based Client Handling**
 
 ---
 
@@ -194,10 +303,19 @@ This project demonstrates practical implementation of:
 
 * User authentication
 * Secure file transfer
-* Progress bar for file uploads/downloads
+* Password-based login
+* File transfer progress bar
 * Improved GUI design
-* File transfer status and progress information
+* Transfer status information
+* Directory creation
+* Directory navigation
 * Better synchronization for simultaneous file operations
-* Support for directory creation and navigation
+* Improved error handling
 
 ---
+
+## Conclusion
+
+This project demonstrates how **Java Socket Programming and Multithreading** can be used to build a basic FTP-style Client-Server application.
+
+It provides practical experience with **network communication, file transfer, Java I/O, multithreading, and GUI development**.
