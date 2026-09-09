@@ -89,13 +89,24 @@ java StudyTrackerApp
 
 ### 1. Insert Study Log
 
+![Insert Study Log](Scre/01_Insert_Study_Log.png)
+
 ### 2. View Study Logs
+
+![View Study Logs](Scre/02_View_Study_Logs.png)
 
 ### 3. CSV Export
 
+![CSV Export](Scre/03_CSV_Export.png)
+
 ### 4. Summary By Date
 
+![Summary By Date](Scre/04_Summary_By_Date.png)
+
 ### 5. Summary By Subject
+
+![Summary By Subject](Scre/05_Summary_By_Subject.png)
+
 
 ## 📚 Java Concepts Demonstrated
 
