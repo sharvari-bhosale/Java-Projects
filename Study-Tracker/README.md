@@ -67,7 +67,7 @@ Manages study records and provides operations such as:
 * SummaryByDate()
 * SummaryBySubject()
 
-### StudyTrackerApp
+### Study_Tracker
 
 Provides the menu-driven interface and allows the user to interact with the application.
 
@@ -76,13 +76,13 @@ Provides the menu-driven interface and allows the user to interact with the appl
 ### 1. Compile the program
 
 ```bash
-javac StudyTracker.java
+javac Study_Tracker.java
 ```
 
 ### 2. Run the application
 
 ```bash
-java StudyTrackerApp
+java Study_Tracker
 ```
 
 ## 📸 Screenshots
@@ -134,5 +134,4 @@ This project helped in understanding how Core Java concepts can be combined to b
 
 **Sharvari Bhosale**
 
-Java | Python | Machine Learning | Automation
 
