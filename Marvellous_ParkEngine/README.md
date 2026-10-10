@@ -159,7 +159,4 @@ Shows the updated parking availability after a vehicle exits successfully.
 
 **Sharvari Bhosale**
 
-GitHub: [sharvari-bhosale](https://github.com/sharvari-bhosale)
-
-Project Repository: [Java-Projects – Marvellous_ParkEngine](https://github.com/sharvari-bhosale/Java-Projects/tree/main/Marvellous_ParkEngine)
 
